@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <title>Form Pemesanan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="JS/jquery-3.7.1.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script>
+        $(document).ready(function () {
+            const hargaKamar = {
+                "STANDAR": 500000,
+                "DELUXE": 800000,
+                "FAMILY": 1000000
+            };
+            function hitungTotal() {
+                const tipeKamar = $("#tipe_kamar").val();
+                const durasiMenginap = parseInt($("#durasi").val()) || 0;
+                const termasukBreakfast = $("#breakfast").is(":checked");
+                const harga = hargaKamar[tipeKamar];
+                $("#harga").val(harga ? `Rp ${harga.toLocaleString()}` : '');
+                if (!harga) {
+                    alert("Tipe kamar belum dipilih!");
+                    return;
+                }
+                let totalHarga = harga * durasiMenginap;
+                if (durasiMenginap > 3) {
+                    totalHarga *= 0.9; // Diskon 10%
+                }
+                if (termasukBreakfast) {
+                    totalHarga += 80000; // Biaya breakfast
+                }
+                $("#total_bayar").val(totalHarga.toLocaleString());
+            }
+            function validasiForm() {
+                const namaPemesan = $("#nama_pemesan").val();
+                const nomorIdentitas = $("#nomor_identitas").val();
+                const jenisKelamin = $("input[name='jenis_kelamin']:checked").val();
+                const tipeKamar = $("#tipe_kamar").val();
+                const tanggalPesan = $("#tanggal_pesan").val();
+                const durasiMenginap = $("#durasi").val();
+                if (!namaPemesan || !nomorIdentitas || !jenisKelamin || !tipeKamar || !tanggalPesan || !durasiMenginap) {
+                    alert("Semua field harus diisi!");
+                    return false;
+                }
+                if (nomorIdentitas.length !== 16) {
+                    alert("Nomor Identitas harus 16 digit!");
+                    return false;
+                }
+                const dateRegex = /^\d{2}\/\d{2}\/\d{4}$/;
+                if (!dateRegex.test(tanggalPesan)) {
+                    alert("Tanggal pesan harus berformat dd/mm/yyyy!");
+                    return false;
+                }
+                if (isNaN(durasiMenginap) || durasiMenginap <= 0) {
+                    alert("Durasi menginap harus berupa angka yang lebih besar dari 0!");
+                    return false;
+                }
+                tampilkanResume(namaPemesan, nomorIdentitas, jenisKelamin, tipeKamar, durasiMenginap);
+                return false; // Mencegah form disubmit
+            }
+            function tampilkanResume(namaPemesan, nomorIdentitas, jenisKelamin, tipeKamar, durasiMenginap) {
+                const diskon = durasiMenginap > 3 ? 10 : 0;
+                const harga = hargaKamar[tipeKamar];
+                let totalHarga = harga * durasiMenginap;
+                if (diskon > 0) {
+                    totalHarga *= 0.9;
+                }
+                if ($("#breakfast").is(":checked")) {
+                    totalHarga += 80000;
+                }
+                const resume = `
+                    <h2 class="text-xl font-bold mb-4">Resume Pemesanan</h2>
+                    <p><strong>Nama Pemesan:</strong> ${namaPemesan}</p>
+                    <p><strong>Nomor Identitas:</strong> ${nomorIdentitas}</p>
+                    <p><strong>Jenis Kelamin:</strong> ${jenisKelamin}</p>
+                    <p><strong>Tipe Kamar:</strong> ${tipeKamar}</p>
+                    <p><strong>Durasi Menginap:</strong> ${durasiMenginap} Hari</p>
+                    <p><strong>Diskon:</strong> ${diskon}%</p>
+                    <p><strong>Total Bayar:</strong> Rp ${totalHarga.toLocaleString()}</p>
+                `;
+                $("#resume").html(resume);
+            }
+            $("#tipe_kamar, #durasi, #breakfast").on("change input", hitungTotal);
+            $("form").on("submit", validasiForm);
+        });
+    </script>
+</head>
+<body class="bg-gray-100">
+    <div class="max-w-2xl mx-auto p-6 bg-white shadow-md rounded-md mt-10">
+        <h1 class="text-2xl font-bold mb-6">Form Pemesanan</h1>
+        <form>
+            <div class="mb-4">
+                <label class="block text-gray-700">Nama Pemesan:</label>
+                <input type="text" id="nama_pemesan" class="w-full px-3 py-2 border rounded-md">
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700">Jenis Kelamin:</label>
+                <div class="flex">
+                    <label class="mr-4">
+                        <input type="radio" name="jenis_kelamin" value="Laki-Laki"> Laki-Laki
+                    </label>
+                    <label>
+                        <input type="radio" name="jenis_kelamin" value="Perempuan"> Perempuan
+                    </label>
+                </div>
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700">Nomor Identitas:</label>
+                <input type="text" id="nomor_identitas" class="w-full px-3 py-2 border rounded-md">
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700">Tipe Kamar:</label>
+                <select id="tipe_kamar" class="w-full px-3 py-2 border rounded-md">
+                    <option value="">--Pilih--</option>
+                    <option value="STANDAR">STANDAR</option>
+                    <option value="DELUXE">DELUXE</option>
+                    <option value="FAMILY">FAMILY</option>
+                </select>
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700">Harga:</label>
+                <input type="text" id="harga" class="w-full px-3 py-2 border rounded-md" readonly>
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700">Tanggal Pesan:</label>
+                <input type="text" id="tanggal_pesan" class="w-full px-3 py-2 border rounded-md" placeholder="dd/mm/yyyy">
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700">Durasi Menginap:</label>
+                <input type="number" id="durasi" class="w-full px-3 py-2 border rounded-md">
+                <span>Hari</span>
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700">Termasuk Breakfast:</label>
+                <input type="checkbox" id="breakfast" class="mr-2"> Ya
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700">Total Bayar:</label>
+                <input type="text" id="total_bayar" class="w-full px-3 py-2 border rounded-md" readonly>
+            </div>
+            <div class="flex justify-end">
+                <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-md mr-2">Simpan</button>
+                <button type="reset" class="px-4 py-2 bg-yellow-500 text-white rounded-md">Batal</button>
+            </div>
+        </form>
+        <div id="resume" class="mt-6 bg-gray-100 p-4 rounded-md">
+            <!-- Resume Pemesanan akan ditampilkan di sini -->
+        </div>
+    </div>
+</body>
+</html>

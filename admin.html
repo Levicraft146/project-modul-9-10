@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Hotel Management</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gray-100">
+
+    <!-- Sidebar -->
+    <div class="flex h-screen">
+        <div class="w-64 bg-blue-600 text-white p-6">
+            <h1 class="text-3xl font-bold mb-6">Hotel Management</h1>
+            <ul>
+                <li class="mb-4"><a href="#manage-rooms" class="hover:text-blue-300">Mengelola Jenis Kamar</a></li>
+                <li class="mb-4"><a href="#manage-facilities" class="hover:text-blue-300">Mengelola Fasilitas</a></li>
+                <li class="mb-4"><a href="#view-bookings" class="hover:text-blue-300">Melihat Data Pemesanan</a></li>
+                <li class="mb-4"><a href="index.html" class="hover:text-blue-300">Logout</a></li>
+            </ul>
+        </div>
+
+        <!-- Main content -->
+        <div class="flex-1 p-8">
+            <h2 class="text-2xl font-bold mb-6">Dashboard Admin</h2>
+
+            <!-- Mengelola Jenis Kamar -->
+            <div id="manage-rooms" class="mb-8">
+                <h3 class="text-xl font-semibold mb-4">Mengelola Jenis Kamar</h3>
+                <button class="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none">Tambah Kamar</button>
+                <div class="mt-4">
+                    <table class="min-w-full table-auto border-collapse border border-gray-300">
+                        <thead>
+                            <tr>
+                                <th class="px-4 py-2 border">ID Kamar</th>
+                                <th class="px-4 py-2 border">Nama Kamar</th>
+                                <th class="px-4 py-2 border">Harga</th>
+                                <th class="px-4 py-2 border">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="px-4 py-2 border">001</td>
+                                <td class="px-4 py-2 border">Kamar Deluxe</td>
+                                <td class="px-4 py-2 border">Rp 1.500.000</td>
+                                <td class="px-4 py-2 border">
+                                    <button class="px-2 py-1 bg-yellow-500 text-white rounded-md hover:bg-yellow-600">Edit</button>
+                                    <button class="px-2 py-1 bg-red-500 text-white rounded-md hover:bg-red-600">Hapus</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-2 border">002</td>
+                                <td class="px-4 py-2 border">Kamar Standard</td>
+                                <td class="px-4 py-2 border">Rp 800.000</td>
+                                <td class="px-4 py-2 border">
+                                    <button class="px-2 py-1 bg-yellow-500 text-white rounded-md hover:bg-yellow-600">Edit</button>
+                                    <button class="px-2 py-1 bg-red-500 text-white rounded-md hover:bg-red-600">Hapus</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Mengelola Fasilitas -->
+            <div id="manage-facilities" class="mb-8">
+                <h3 class="text-xl font-semibold mb-4">Mengelola Fasilitas</h3>
+                <button class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none">Tambah Fasilitas</button>
+                <div class="mt-4">
+                    <table class="min-w-full table-auto border-collapse border border-gray-300">
+                        <thead>
+                            <tr>
+                                <th class="px-4 py-2 border">Nama Fasilitas</th>
+                                <th class="px-4 py-2 border">Keterangan</th>
+                                <th class="px-4 py-2 border">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="px-4 py-2 border">Wi-Fi</td>
+                                <td class="px-4 py-2 border">Gratis di seluruh area hotel</td>
+                                <td class="px-4 py-2 border">
+                                    <button class="px-2 py-1 bg-yellow-500 text-white rounded-md hover:bg-yellow-600">Edit</button>
+                                    <button class="px-2 py-1 bg-red-500 text-white rounded-md hover:bg-red-600">Hapus</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-2 border">Kolam Renang</td>
+                                <td class="px-4 py-2 border">Tersedia untuk tamu hotel</td>
+                                <td class="px-4 py-2 border">
+                                    <button class="px-2 py-1 bg-yellow-500 text-white rounded-md hover:bg-yellow-600">Edit</button>
+                                    <button class="px-2 py-1 bg-red-500 text-white rounded-md hover:bg-red-600">Hapus</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Melihat Data Pemesanan -->
+            <div id="view-bookings">
+                <h3 class="text-xl font-semibold mb-4">Melihat Data Pemesanan Konsumen</h3>
+                <div class="mt-4">
+                    <table class="min-w-full table-auto border-collapse border border-gray-300">
+                        <thead>
+                            <tr>
+                                <th class="px-4 py-2 border">ID Pemesanan</th>
+                                <th class="px-4 py-2 border">Nama Konsumen</th>
+                                <th class="px-4 py-2 border">Tanggal Check-In</th>
+                                <th class="px-4 py-2 border">Tanggal Check-Out</th>
+                                <th class="px-4 py-2 border">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="px-4 py-2 border">P001</td>
+                                <td class="px-4 py-2 border">John Doe</td>
+                                <td class="px-4 py-2 border">2025-01-10</td>
+                                <td class="px-4 py-2 border">2025-01-12</td>
+                                <td class="px-4 py-2 border">Terkonfirmasi</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-2 border">P002</td>
+                                <td class="px-4 py-2 border">Jane Smith</td>
+                                <td class="px-4 py-2 border">2025-01-15</td>
+                                <td class="px-4 py-2 border">2025-01-17</td>
+                                <td class="px-4 py-2 border">Terkonfirmasi</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>

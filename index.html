@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Hotel Management</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <div class="w-full max-w-md p-6 bg-white rounded-lg shadow-md">
+        <h1 class="text-2xl font-bold text-center mb-6">Login</h1>
+
+        <!-- Tombol pilih jenis pengguna -->
+        <div class="mb-4 flex justify-center space-x-4">
+            <button id="admin-btn" class="px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500" onclick="showForm('admin')">Admin</button>
+            <button id="consumer-btn" class="px-4 py-2 text-white bg-green-500 rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500" onclick="showForm('consumer')">Konsumen</button>
+        </div>
+
+        <!-- Form login yang dinamis -->
+        <form id="login-form" action="" method="POST">
+            <div class="mb-4">
+                <label for="username" class="block text-gray-700">Username</label>
+                <input type="text" id="username" name="username" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+            <div class="mb-4">
+                <label for="password" class="block text-gray-700">Password</label>
+                <input type="password" id="password" name="password" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+            <div class="flex items-center justify-between mb-4">
+                <label class="inline-flex items-center">
+                    <input type="checkbox" class="form-checkbox text-blue-500">
+                    <span class="ml-2 text-gray-700">Ingat Saya</span>
+                </label>
+                <a href="#" class="text-sm text-blue-500 hover:underline">Lupa Password?</a>
+            </div>
+            <button type="submit" id="login-button" class="w-full px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">Login</button>
+        </form>
+
+        <!-- Pesan hak cipta -->
+        <p class="mt-6 text-center text-sm text-gray-500">
+            &copy; 2025 Hotel Levi craft Diamond.
+        </p>
+    </div>
+
+    <script>
+        function showForm(userType) {
+            // Sembunyikan tombol
+            document.getElementById("admin-btn").classList.add("hidden");
+            document.getElementById("consumer-btn").classList.add("hidden");
+
+            // Tampilkan form login
+            document.getElementById("login-form").classList.remove("hidden");
+
+            // Sesuaikan label dan action form sesuai dengan jenis pengguna
+            if (userType === 'admin') {
+                document.querySelector("h1").textContent = "Login Admin";
+                document.querySelector("form").action = "admin.html";  // Arahkan ke admin.html
+            } else if (userType === 'consumer') {
+                document.querySelector("h1").textContent = "Login Konsumen";
+                document.querySelector("form").action = "form_pemesanan.html";  // Arahkan ke form_pemesanan.html
+            }
+        }
+    </script>
+</body>
+</html>
